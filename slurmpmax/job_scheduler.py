@@ -1,5 +1,5 @@
 from datetime import datetime
-import subprpocess
+import subprocess
 
 
 
@@ -8,7 +8,7 @@ class SlurmJob:
         self.opts = self.fetch_opts(kwargs)
         self.slurm = self.fetch_slurmjob()
 
-    def fetch_slurmjob(self)
+    def fetch_slurmjob(self):
         template = self.opts.get("template")
         templates = {
             "default": f"""#!/bin/bash -l
