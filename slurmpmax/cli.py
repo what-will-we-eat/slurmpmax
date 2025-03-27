@@ -9,18 +9,8 @@ import sys
 
 
 
-def main(args):
-    job = SlurmJob(**vars(args))
-    print("Starting job:\n")
-    print(job.slurm)
-    result = job.run()
-    print(result.stdout)
-    print(result.stderr)
-        
 
-
-
-if __name__ == '__main__':
+def cli():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-e", "--executable", required=True, help="script to run with sbatch")
     parser.add_argument("--exargs", type=str, default=None, help="arguments for the executable")
@@ -46,4 +36,10 @@ if __name__ == '__main__':
     if args.error_file is None:
         args.error_file = f'{args.log_location}/{args.job_name}/{datetime.now().strftime("%Y%m%d-%H%M%S")}_{args.job_name}.err'
     os.makedirs(f'{args.log_location}/{args.job_name}', exist_ok=True)
-    main(args)
+    job = SlurmJob(**vars(args))
+    print("Starting job:\n")
+    print(job.slurm)
+    result = job.run()
+    print(result.stdout)
+    print(result.stderr)
+ 
